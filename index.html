@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BARZ — Support &amp; Privacy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;700;900&family=Inter:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:         #0b0d10;
+      --surface:    rgba(255,255,255,0.04);
+      --line:       rgba(255,255,255,0.08);
+      --text:       #eef1f5;
+      --muted:      #aab2be;
+      --accent:     rgb(59,157,255);
+      --gold:       rgb(232,195,76);
+      --danger:     rgb(210,74,63);
+      --font-display: 'Archivo', sans-serif;
+      --font-body:    'Inter', sans-serif;
+      --font-num:     'IBM Plex Mono', monospace;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    /* ── Ambient bg glow (matches ui-backdrop from app) ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(130% 55% at 50% 0%, rgba(59,157,255,0.07) 0%, transparent 62%),
+        radial-gradient(135% 42% at 50% 100%, rgba(59,157,255,0.10) 0%, transparent 58%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── Layout ── */
+    .page { position: relative; z-index: 1; max-width: 680px; margin: 0 auto; padding: 0 20px 80px; }
+
+    /* ── Header ── */
+    header {
+      padding: 48px 0 32px;
+      border-bottom: 1px solid var(--line);
+      margin-bottom: 40px;
+    }
+    .wordmark {
+      font-family: var(--font-display);
+      font-weight: 900;
+      font-size: 2.4rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text);
+    }
+    .wordmark span { color: var(--accent); }
+    .tagline {
+      font-family: var(--font-num);
+      font-size: 0.72rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 6px;
+    }
+
+    /* ── Nav tabs ── */
+    nav {
+      display: flex;
+      gap: 4px;
+      margin-bottom: 48px;
+    }
+    nav a {
+      font-family: var(--font-display);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--muted);
+      padding: 8px 18px;
+      border-radius: 20px;
+      border: 1px solid var(--line);
+      background: var(--surface);
+      backdrop-filter: blur(12px);
+      transition: color 0.15s, border-color 0.15s;
+    }
+    nav a:hover, nav a.active {
+      color: var(--accent);
+      border-color: rgba(59,157,255,0.35);
+    }
+
+    /* ── Section cards ── */
+    section {
+      background: var(--surface);
+      backdrop-filter: blur(16px) saturate(135%);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 32px;
+      margin-bottom: 20px;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.06), 0 20px 40px -20px rgba(0,0,0,0.6);
+    }
+
+    section h2 {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.1rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text);
+      margin-bottom: 20px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--line);
+    }
+    section h2 .dot { color: var(--accent); }
+
+    h3 {
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: 0.82rem;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin: 24px 0 8px;
+    }
+    h3:first-of-type { margin-top: 0; }
+
+    p { color: var(--muted); font-size: 0.93rem; margin-bottom: 12px; }
+    p:last-child { margin-bottom: 0; }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 12px;
+    }
+    ul li {
+      color: var(--muted);
+      font-size: 0.93rem;
+      padding: 5px 0 5px 18px;
+      position: relative;
+    }
+    ul li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: rgba(59,157,255,0.5);
+      font-family: var(--font-num);
+    }
+
+    /* ── Accent chip ── */
+    .chip {
+      display: inline-block;
+      font-family: var(--font-num);
+      font-size: 0.68rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: rgba(59,157,255,0.10);
+      border: 1px solid rgba(59,157,255,0.25);
+      border-radius: 20px;
+      padding: 3px 10px;
+      margin-bottom: 14px;
+    }
+
+    /* ── Contact button ── */
+    .btn-contact {
+      display: inline-block;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 0.82rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: #04101c;
+      background: linear-gradient(180deg, rgba(255,255,255,0.24), rgba(255,255,255,0.05) 60%), rgb(59,157,255);
+      border: 1px solid rgba(255,255,255,0.30);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.45), 0 8px 20px -8px rgba(59,157,255,0.55);
+      border-radius: 13px;
+      padding: 12px 28px;
+      margin-top: 20px;
+      transition: opacity 0.15s;
+    }
+    .btn-contact:hover { opacity: 0.88; }
+
+    /* ── Support FAQ ── */
+    .faq-item { margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid var(--line); }
+    .faq-item:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+    .faq-q {
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: 0.93rem;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+    .faq-a { font-size: 0.88rem; color: var(--muted); }
+
+    /* ── Updated date ── */
+    .updated {
+      font-family: var(--font-num);
+      font-size: 0.68rem;
+      color: rgba(170,178,190,0.5);
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      margin-top: 4px;
+    }
+
+    /* ── Footer ── */
+    footer {
+      text-align: center;
+      padding-top: 40px;
+      border-top: 1px solid var(--line);
+      margin-top: 20px;
+    }
+    footer p { font-size: 0.78rem; color: rgba(170,178,190,0.45); }
+
+    /* ── Mobile ── */
+    @media (max-width: 500px) {
+      section { padding: 24px 20px; }
+      .wordmark { font-size: 1.9rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <header>
+    <div class="wordmark">B<span>A</span>RZ</div>
+    <div class="tagline">Rap Game · Support &amp; Privacy</div>
+  </header>
+
+  <nav>
+    <a href="#support" class="active">Support</a>
+    <a href="#privacy">Privacy Policy</a>
+  </nav>
+
+  <!-- SUPPORT -->
+  <section id="support">
+    <div class="chip">Support</div>
+    <h2>Get Help <span class="dot">.</span></h2>
+
+    <div class="faq-item">
+      <div class="faq-q">How do I restore my purchases?</div>
+      <div class="faq-a">Open the game, go to Settings (bottom of the Home screen), and tap Restore Purchases. Your Barz Pass and any one-time purchases will be restored instantly as long as you're signed in with the same Apple ID.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">My game progress has reset — what happened?</div>
+      <div class="faq-a">Progress is saved on your device. Deleting the app removes saved data. If you've reinstalled, your story will start fresh. Purchases (Pass, Bars packs, Remove Ads) are always restorable via your Apple ID — tap Restore Purchases in Settings.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">How does Barz Pass work?</div>
+      <div class="faq-a">Barz Pass is a monthly or annual subscription. While active it grants weekly Bars, removes ads, unlocks exclusive fits in the Wardrobe, and gives early access to new episodes. The story is always free — the Pass is cosmetics and convenience only.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">How do I cancel Barz Pass?</div>
+      <div class="faq-a">Open the Settings app on your iPhone → Apple ID → Subscriptions → Barz. You can cancel anytime. Your Pass stays active until the end of the current billing period.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">I found a bug or want to report something</div>
+      <div class="faq-a">Drop us an email with your device model, iOS version, and a description of what happened. We read every message.</div>
+    </div>
+
+    <a href="mailto:support@playbarz.com" class="btn-contact">Email Support</a>
+  </section>
+
+  <!-- PRIVACY POLICY -->
+  <section id="privacy">
+    <div class="chip">Legal</div>
+    <h2>Privacy Policy <span class="dot">.</span></h2>
+    <div class="updated">Last updated: 29 June 2026</div>
+
+    <h3>Who we are</h3>
+    <p>BARZ – Rap Game is developed and published by SDKK Holdings. If you have questions about this policy, contact us at <a href="mailto:support@playbarz.com" style="color: var(--accent); text-decoration: none;">support@playbarz.com</a>.</p>
+
+    <h3>Data we collect</h3>
+    <p>We do not create user accounts or collect your name, email, or personal details. Game progress (story choices, stats, owned items) is stored locally on your device and may sync via iCloud if enabled in your device settings.</p>
+
+    <h3>Third-party SDKs</h3>
+    <p>The app uses the following third-party services which may collect data as described in their own privacy policies:</p>
+    <ul>
+      <li><strong style="color: var(--text);">Google AdMob</strong> — serves optional rewarded ads. With your consent (via the App Tracking Transparency prompt on first launch), AdMob may use your device's advertising identifier for personalised ads. You can opt out at any time in iPhone Settings → Privacy &amp; Security → Tracking.</li>
+      <li><strong style="color: var(--text);">RevenueCat</strong> — processes in-app purchases and subscription status. RevenueCat receives your App Store receipt and a randomised device identifier to verify entitlements. No personal information is shared.</li>
+    </ul>
+
+    <h3>Advertising and tracking</h3>
+    <p>We only show opt-in rewarded ads — you choose to watch one in exchange for in-game rewards. No ads are shown without your action. No ads are shown during gameplay or story content. We never show forced or interstitial ads.</p>
+    <p>We request App Tracking Transparency permission on first launch. If you decline, ads shown will be non-personalised. This does not affect gameplay in any way.</p>
+
+    <h3>Children</h3>
+    <p>BARZ is rated 12+ and is not directed at children under 13. We do not knowingly collect data from children.</p>
+
+    <h3>Data retention and deletion</h3>
+    <p>Since we hold no personal data on our servers, there is nothing to delete. Uninstalling the app removes all local save data from your device. Subscription records are held by Apple and RevenueCat per their own retention policies.</p>
+
+    <h3>Your rights</h3>
+    <p>Under UK GDPR you have the right to access, correct, and erase personal data we hold. As we hold none, there is nothing to action — but if you have concerns, contact us at <a href="mailto:support@playbarz.com" style="color: var(--accent); text-decoration: none;">support@playbarz.com</a> and we'll respond within 30 days.</p>
+
+    <h3>Changes to this policy</h3>
+    <p>If we make material changes we will update the date above and, where appropriate, notify you through the app.</p>
+  </section>
+
+  <footer>
+    <p>© 2026 SDKK Holdings · BARZ – Rap Game</p>
+    <p style="margin-top: 6px;"><a href="mailto:support@playbarz.com" style="color: rgba(59,157,255,0.5); text-decoration: none;">support@playbarz.com</a></p>
+  </footer>
+
+</div>
+</body>
+</html>
